@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {editUser, removeUser} from '../store/actions/user';
+import {editUser, removeUser, fetchUsers} from '../store/actions/user';
 import UserList from '../components/user/UserList';
 import PropTypes from 'prop-types';
 
@@ -33,6 +33,8 @@ class VisibleUserList extends Component {
     this.unsubscribe = store.subscribe(() => {
       this.forceUpdate()
     });
+    // fetch users from server
+    store.dispatch(fetchUsers());
   }
 
   componentWillUnmount() {

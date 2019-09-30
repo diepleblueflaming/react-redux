@@ -1,70 +1,74 @@
 import {
-  GET_USER,
+  FETCH_USERS,
   ADD_USER,
   UPDATE_USER,
   REMOVE_USER
 } from "../action_types";
-
+import createReducer from '../../core/createReducer';
 
 const initialState  = {
   loading: false,
-  users: [
-    {
-      id: 1,
-      username: 'peter'
-    },
-    {
-      id: 2,
-      username: 'jame'
-    }
-  ]
+  users: []
 };
 
-const getUser = (state) => {
-  return state.users
-};
+const handlers = {
+  /**
+   * return all user available
+   * @param state
+   * @param users
+   * @returns {*}
+   */
+  [FETCH_USERS]: (state, users) => {
+    return Object.assign({}, state, {
+      users
+    });
+  },
 
-const addUser = (state, username) => {
-  const newUser = {
-    id: state.users[state.users.length - 1].id + 1,
-    username
-  };
-  const newUsers = [...state.users, newUser];
-  return Object.assign({}, state, {
-    users: newUsers
-  });
-};
+  /**
+   * add new user to list
+   * @param state
+   * @param newUser
+   * @returns {*}
+   */
+  [ADD_USER]: (state, username) => {
+    const newUser = {
+      id: state.users[state.users.length - 1].id + 1,
+      username
+    };
+    const newUsers = [...state.users, newUser];
+    return Object.assign({}, state, {
+      users: newUsers
+    });
+  },
 
-const editUser = (state, newUser) => {
-  const index = state.users.findIndex(user => newUser.id === user.id);
+  /**
+   * update user info
+   * @param state
+   * @param newUser
+   * @returns {*}
+   */
+  [UPDATE_USER]: (state, newUser) => {
+    const index = state.users.findIndex(user => newUser.id === user.id);
 
-  return Object.assign({}, state, {
-    users: [
-      ...state.users.slice(0, index),
-      newUser,
-      ...state.users.slice(index + 1)
-    ]
-  });
-};
+    return Object.assign({}, state, {
+      users: [
+        ...state.users.slice(0, index),
+        newUser,
+        ...state.users.slice(index + 1)
+      ]
+    });
+  },
 
-const removeUser = (state, userId) => {
-  return Object.assign({}, state, {
-    users: state.users.filter(user => user.id !== userId)
-  });
-};
-
-const userReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case GET_USER:
-      return getUser(state);
-    case ADD_USER:
-      return addUser(state, action.payload);
-    case UPDATE_USER:
-      return editUser(state, action.payload);
-    case REMOVE_USER:
-      return removeUser(state, action.payload);
-    default:
-      return state;
+  /**
+   * remove an user by userID
+   * @param state
+   * @param userId
+   * @returns {*}
+   */
+  [REMOVE_USER]: (state, userId) => {
+    return Object.assign({}, state, {
+      users: state.users.filter(user => user.id !== userId)
+    });
   }
 };
-export default userReducer;
+export default createReducer(initialState, handlers);

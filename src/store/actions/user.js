@@ -1,20 +1,23 @@
 import {
-  GET_USER,
+  FETCH_USERS,
   ADD_USER,
   UPDATE_USER,
   REMOVE_USER
 } from '../action_types';
 
-export const getUser = () => {
+export const fetchUsers = () => {
   return {
-    type: GET_USER
+    type: FETCH_USERS
   }
 };
 
 export const addUser = (username) => {
   return {
     type: ADD_USER,
-    payload: username
+    payload: username,
+    meta: {
+      debounce: 1000
+    }
   }
 };
 
