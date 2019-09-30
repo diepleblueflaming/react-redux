@@ -76,28 +76,7 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="App">
-        <div className="user-input">
-          <input type="text" id="username" onKeyPress={this.addUser} />
-        </div>
-        {this.props.state.users.map((user, index) => (
-          <div className="container">
-            <div
-              className="title"
-              key={index}
-              data-id={user.id}
-              onClick={this.onUpdateUserName}
-            >
-              {user.name}
-            </div>
-            <div className="remove-btn" onClick={this.onDeleteUser}>
-              Delete
-            </div>
-          </div>
-        ))}
-      </div>
-    );
+    return <div className="App" />;
   }
 }
 
