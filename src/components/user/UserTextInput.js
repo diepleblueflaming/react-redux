@@ -9,10 +9,14 @@ class UserTextInput extends Component {
 
     this.textInput = null;
     this.setTextInput = element => (this.textInput = element);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
   }
 
   static propTypes = {
-    onSave: PropTypes.object.isRequired,
+    onSave: PropTypes.func.isRequired,
     text: PropTypes.string,
     isAddNew: PropTypes.bool
   };
@@ -38,7 +42,7 @@ class UserTextInput extends Component {
 
   handleBlur() {
     if (!this.props.isAddNew) {
-      this.props.onSave(this.state.value);
+      this.props.onSave(this.state.text);
     }
   }
 
@@ -53,6 +57,7 @@ class UserTextInput extends Component {
           onChange={this.handleChange}
           onBlur={this.handleBlur}
           onKeyPress={this.handleSubmit}
+          ref={this.setTextInput}
         />
       </div>
     );

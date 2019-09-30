@@ -1,4 +1,37 @@
 .App {
   font-family: sans-serif;
-  text-align: center;
+}
+.App .user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.App .user-list .user-info {
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.App .user-list .user-info .title {
+  font-size: 24px;
+  padding-right: 15px;
+}
+
+
+.App .user-list .user-info .remove-btn {
+  position: relative;
+  height: 28px;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+}
+
+.App .user-list .user-info .remove-btn:after {
+  content: 'X';
+  font-size: 15px;
+  font-weight: bold;
+  color: red;
 }

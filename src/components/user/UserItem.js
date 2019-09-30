@@ -1,39 +1,72 @@
 import React, {Component} from 'react';
 import UserTextInput from './UserTextInput';
+import PropTypes from 'prop-types';
 
-class User extends Comment {
+class User extends Component {
+  constructor(props) {
+    super(props);
 
-  state = {
-    editting: false
+    this.handleSave = this.handleSave.bind(this);
+    this.handleRemoveUser = this.handleRemoveUser.bind(this);
+    this.handleDoubleClick = this.handleDoubleClick.bind(this);
   }
 
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+    editUser: PropTypes.func.isRequired,
+    removeUser: PropTypes.func.isRequired,
+  };
 
-  handleSave() {
-    
+  state = {
+    editing: false
+  };
+
+  handleSave(userId, text) {
+    if (text.length === 0) {
+      this.props.removeUser(userId);
+    } else {
+      this.props.editUser(userId, text);
+    }
+    this.setState({editing: false});
+  }
+
+  handleRemoveUser(userId) {
+    return (event) => {
+      event.preventDefault();
+      this.props.removeUser(userId);
+    }
+  }
+
+  handleDoubleClick() {
+    this.setState({editing: true});
   }
 
   render () {
-
     const {user} = this.props;
-
-
     let element = '';
 
-    if (this.state.editting) {
-      element = <UserTextInput onSave={} text={user.username}>
+    if (this.state.editing) {
+      element = <UserTextInput
+        onSave={text => this.handleSave(user.id, text)}
+        isAddNew={false}
+        text={user.username}
+      />
+    } else {
+      element = <li className="user-info">
+        <label
+          className="title"
+          data-id={user.id}
+          onDoubleClick={this.handleDoubleClick}
+        >
+          {user.username}
+        </label>
+        <button className="remove-btn" onClick={this.handleRemoveUser(user.id)}> </button>
+      </li>
     }
-
     return (
-      <div className="container">
-        <div className="title" data-id={user.id} onClick={onUpdateUserName}>
-          {user.name}
-        </div>
-        <div className="remove-btn" onClick={onRemoveUser}>
-          Delete
-        </div>
-      </div>
+     element
     );
   }
-};
+}
 
 export default User;

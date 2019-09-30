@@ -11,30 +11,31 @@ const initialState  = {
   users: [
     {
       id: 1,
-      name: 'peter'
+      username: 'peter'
     },
     {
       id: 2,
-      name: 'jame'
+      username: 'jame'
     }
   ]
 };
-
 
 const getUser = (state) => {
   return state.users
 };
 
-
-const addUser = (state, newUser) => {
+const addUser = (state, username) => {
+  const newUser = {
+    id: state.users[state.users.length - 1].id + 1,
+    username
+  };
   const newUsers = [...state.users, newUser];
   return Object.assign({}, state, {
     users: newUsers
   });
 };
 
-
-const updateUser = (state, newUser) => {
+const editUser = (state, newUser) => {
   const index = state.users.findIndex(user => newUser.id === user.id);
 
   return Object.assign({}, state, {
@@ -46,13 +47,11 @@ const updateUser = (state, newUser) => {
   });
 };
 
-
 const removeUser = (state, userId) => {
   return Object.assign({}, state, {
     users: state.users.filter(user => user.id !== userId)
   });
 };
-
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -61,7 +60,7 @@ const userReducer = (state = initialState, action) => {
     case ADD_USER:
       return addUser(state, action.payload);
     case UPDATE_USER:
-      return updateUser(state, action.payload);
+      return editUser(state, action.payload);
     case REMOVE_USER:
       return removeUser(state, action.payload);
     default:

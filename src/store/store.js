@@ -1,10 +1,5 @@
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import userReducer from './reducers/user';
-
-const reducers = combineReducers({
-  user: userReducer
-});
-
+import {createStore, applyMiddleware} from 'redux';
+import reducers from '../store/reducers';
 
 const store = createStore(reducers);
 export default store;

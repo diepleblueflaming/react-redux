@@ -11,14 +11,14 @@ export const getUser = () => {
   }
 };
 
-export const addUser = (newUser) => {
+export const addUser = (username) => {
   return {
     type: ADD_USER,
-    payload: newUser
+    payload: username
   }
 };
 
-export const updateUser = (newUser) => {
+export const editUser = (newUser) => {
   return {
     type: UPDATE_USER,
     payload: newUser
