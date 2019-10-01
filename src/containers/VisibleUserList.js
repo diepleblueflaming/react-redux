@@ -6,27 +6,24 @@ import PropTypes from 'prop-types';
 class VisibleUserList extends Component {
   constructor(props) {
     super(props);
-
-    this.editUser = this.editUser.bind(this);
-    this.removeUser = this.removeUser.bind(this);
   }
 
   static contextTypes = {
     store: PropTypes.object.isRequired
   };
 
-  editUser(userId, username) {
+  editUser = (userId, username) => {
     const {store} = this.context;
     store.dispatch(editUser({
       id: userId,
       username
     }));
-  }
+  };
 
-  removeUser(userId) {
+  removeUser = (userId) => {
     const {store} = this.context;
     store.dispatch(removeUser(userId));
-  }
+  };
 
   componentDidMount() {
     const {store} = this.context;

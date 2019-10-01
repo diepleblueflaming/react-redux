@@ -5,8 +5,6 @@
  * Date-Time: 28/09/2019-17:31
  */
 
-
-
 const createReducer = (initialState, handlers) => {
   return function reducer(state, action) {
     if (state === undefined) {

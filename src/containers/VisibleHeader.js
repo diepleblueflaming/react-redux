@@ -7,18 +7,16 @@ import PropTypes from "prop-types";
 class VisibleHeader extends Component {
   constructor(props) {
     super(props);
-
-    this.addUser = this.addUser.bind(this);
   }
 
   static contextTypes = {
     store: PropTypes.object.isRequired
   };
 
-  addUser(username) {
+  addUser = (username) => {
     const {store} = this.context;
     store.dispatch(addUser(username));
-  }
+  };
 
   render() {
     return (

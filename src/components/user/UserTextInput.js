@@ -9,10 +9,6 @@ class UserTextInput extends Component {
 
     this.textInput = null;
     this.setTextInput = element => (this.textInput = element);
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleBlur = this.handleBlur.bind(this);
   }
 
   static propTypes = {
@@ -25,7 +21,7 @@ class UserTextInput extends Component {
     text: this.props.text || ""
   };
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     const text = this.textInput.value.trim();
     const keyCode = event.keyCode || event.which;
     if (keyCode === ENTER_KEYCODE) {
@@ -34,17 +30,17 @@ class UserTextInput extends Component {
         this.setState({ text: "" });
       }
     }
-  }
+  };
 
-  handleChange() {
+  handleChange = () => {
     this.setState({ text: this.textInput.value });
-  }
+  };
 
-  handleBlur() {
+  handleBlur = () => {
     if (!this.props.isAddNew) {
       this.props.onSave(this.state.text);
     }
-  }
+  };
 
   render() {
     return (

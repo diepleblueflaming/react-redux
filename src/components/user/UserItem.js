@@ -5,10 +5,6 @@ import PropTypes from 'prop-types';
 class User extends Component {
   constructor(props) {
     super(props);
-
-    this.handleSave = this.handleSave.bind(this);
-    this.handleRemoveUser = this.handleRemoveUser.bind(this);
-    this.handleDoubleClick = this.handleDoubleClick.bind(this);
   }
 
   static propTypes = {
@@ -21,25 +17,25 @@ class User extends Component {
     editing: false
   };
 
-  handleSave(userId, text) {
+  handleSave = (userId, text) => {
     if (text.length === 0) {
       this.props.removeUser(userId);
     } else {
       this.props.editUser(userId, text);
     }
     this.setState({editing: false});
-  }
+  };
 
-  handleRemoveUser(userId) {
+  handleRemoveUser = (userId) => {
     return (event) => {
       event.preventDefault();
       this.props.removeUser(userId);
     }
-  }
+  };
 
-  handleDoubleClick() {
+  handleDoubleClick = () => {
     this.setState({editing: true});
-  }
+  };
 
   render () {
     const {user} = this.props;
